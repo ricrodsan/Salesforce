@@ -60,6 +60,8 @@ const dataBaseFile ='MecardoNucleFila3.csv';
        itemValue11.ele('field', 'ugz_txt_MercadoIndustrial__c');
        itemValue11.ele('value', {'xsi:type':'xsd:string'}, row.ugz_txt_MercadoIndustrial__c  =='NA'? '': row.ugz_txt_MercadoIndustrial__c );
 
+       FIZ A MINHA ALTERAÇÃO(CODIFICAÇÃO)
+
 */
 
        var xml  = root.end({ pretty: true});
