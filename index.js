@@ -1,8 +1,10 @@
 const csv = require('csv-parser');
 const fs = require('fs')
 var builder = require('xmlbuilder');
+const  metaDataTypeName ='ugz_ParametrizacaoAtribuicaoFila';
+const dataBaseFile ='MecardoNucleFila3.csv';
  
-  fs.createReadStream('BaseDadoV2.csv')
+  fs.createReadStream(dataBaseFile)
   .pipe(csv())
   .on('data', (row) => { 
 
@@ -14,18 +16,18 @@ var builder = require('xmlbuilder');
       var protected = root.ele('protected','false');
 
        var itemValue1 = root.ele('values')
-       itemValue1.ele('field', 'ugz_txt_FilaNucleoEmpresarial__c');
-       itemValue1.ele('value',  {'xsi:type':'xsd:string'}, row.ugz_txt_FilaNucleoEmpresarial__c);
+       itemValue1.ele('field', 'ugz_txt_Fila__c');
+       itemValue1.ele('value',  {'xsi:type':'xsd:string'}, row.ugz_txt_Fila__c);
 
        var itemValue2 = root.ele('values')
-       itemValue2.ele('field', 'ugz_txt_FilaNucleoIndustrialEnvasado__c');
-       itemValue2.ele('value', {'xsi:type':'xsd:string'}, row.ugz_txt_FilaNucleoIndustrialEnvasado__c);
+       itemValue2.ele('field', 'ugz_txt_Mercado__c');
+       itemValue2.ele('value', {'xsi:type':'xsd:string'}, row.ugz_txt_Mercado__c);
 
        var itemValue3 = root.ele('values')
-       itemValue3.ele('field', 'ugz_txt_FilaNucleoRevenda__c');
-       itemValue3.ele('value', {'xsi:type':'xsd:string'}, row.ugz_txt_FilaNucleoRevenda__c);
+       itemValue3.ele('field', 'ugz_txt_Nucleo__c');
+       itemValue3.ele('value', {'xsi:type':'xsd:string'}, row.ugz_txt_Nucleo__c);
 
-       var itemValue4 = root.ele('values')
+       /*var itemValue4 = root.ele('values')
        itemValue4.ele('field', 'ugz_txt_MunicipioSemAcento__c');
        itemValue4.ele('value', {'xsi:type':'xsd:string'}, row.ugz_txt_MunicipioSemAcento__c);
 
@@ -46,7 +48,19 @@ var builder = require('xmlbuilder');
        itemValue8.ele('field', 'ugz_txt_UnidadeFederativa__c');
        itemValue8.ele('value', {'xsi:type':'xsd:string'}, row.ugz_txt_UnidadeFederativa__c);
 
+       var itemValue9 = root.ele('values')
+       itemValue9.ele('field', 'ugz_txt_MercadoEmpresarial__c');
+       itemValue9.ele('value', {'xsi:type':'xsd:string'}, row.ugz_txt_MercadoEmpresarial__c  =='NA'? '': row.ugz_txt_MercadoEmpresarial__c) ;
 
+       var itemValue10 = root.ele('values')
+       itemValue10.ele('field', 'ugz_txt_MercadoRevenda__c');
+       itemValue10.ele('value', {'xsi:type':'xsd:string'}, row.ugz_txt_MercadoRevenda__c =='NA'? '': row.ugz_txt_MercadoRevenda__c);
+
+       var itemValue11= root.ele('values')
+       itemValue11.ele('field', 'ugz_txt_MercadoIndustrial__c');
+       itemValue11.ele('value', {'xsi:type':'xsd:string'}, row.ugz_txt_MercadoIndustrial__c  =='NA'? '': row.ugz_txt_MercadoIndustrial__c );
+
+*/
 
        var xml  = root.end({ pretty: true});
 
@@ -54,7 +68,7 @@ var builder = require('xmlbuilder');
       xml = xml.replace('</root>','');
 
    console.log(xml);
-var filePahtName ='Files/ugz_ConfiguracoesParametrizacaoFila.X'+ row.Label +'.md-meta.xml';
+var filePahtName =`Files/${metaDataTypeName}.X${row.Label}.md-meta.xml`;
 
 
    fs.writeFile(filePahtName, xml, function (err) {
